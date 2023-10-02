@@ -4,7 +4,7 @@ import bg.sodtuni.pathfinderproject.model.enums.RoleEnum;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "names")
+@Table(name = "roles")
 public class RoleEntity extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
