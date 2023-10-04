@@ -24,7 +24,7 @@ public class RouteEntity extends BaseEntity {
     private String videoUrl;
 
     @ManyToOne(targetEntity = UserEntity.class)
-    @JoinColumn(name = "author_id")
+    @JoinColumn(name = "author_id", referencedColumnName = "id")
     private UserEntity author;
 
     public RouteEntity() {
