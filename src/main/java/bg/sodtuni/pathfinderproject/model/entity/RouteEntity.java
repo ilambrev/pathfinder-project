@@ -3,6 +3,9 @@ package bg.sodtuni.pathfinderproject.model.entity;
 import bg.sodtuni.pathfinderproject.model.enums.RouteLevelEnum;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "routes")
 public class RouteEntity extends BaseEntity {
@@ -27,8 +30,13 @@ public class RouteEntity extends BaseEntity {
     @JoinColumn(name = "author_id", referencedColumnName = "id")
     private UserEntity author;
 
-    public RouteEntity() {
+    @ManyToMany(targetEntity = CategoryEntity.class, fetch = FetchType.EAGER)
+    @JoinTable(name = "routes_categories", joinColumns = @JoinColumn(name = "route_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
+    private Set<CategoryEntity> categories;
 
+    public RouteEntity() {
+        this.categories = new HashSet<>();
     }
 
     public String getDescription() {
@@ -82,6 +90,15 @@ public class RouteEntity extends BaseEntity {
 
     public RouteEntity setAuthor(UserEntity author) {
         this.author = author;
+        return this;
+    }
+
+    public Set<CategoryEntity> getCategories() {
+        return categories;
+    }
+
+    public RouteEntity setCategories(Set<CategoryEntity> categories) {
+        this.categories = categories;
         return this;
     }
 
