@@ -18,7 +18,7 @@ public class CommentEntity extends BaseEntity {
     private String textContent;
 
     @ManyToOne(targetEntity = UserEntity.class)
-    @JoinColumn(name = "aothor_id", referencedColumnName = "id")
+    @JoinColumn(name = "author_id", referencedColumnName = "id")
     private UserEntity author;
 
     @ManyToOne(targetEntity = RouteEntity.class)

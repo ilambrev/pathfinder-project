@@ -1,8 +1,10 @@
 package bg.sodtuni.pathfinderproject.model.entity;
 
-import bg.sodtuni.pathfinderproject.model.enums.RoleEnum;
 import bg.sodtuni.pathfinderproject.model.enums.UserLevelEnum;
 import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -24,15 +26,16 @@ public class UserEntity extends BaseEntity {
     private String email;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false)
-    private RoleEnum role;
-
-    @Enumerated(EnumType.STRING)
     @Column(name = "level")
     private UserLevelEnum level;
 
-    public UserEntity() {
+    @ManyToMany(targetEntity = RoleEntity.class, fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Set<RoleEntity> roles;
 
+    public UserEntity() {
+        this.roles = new HashSet<>();
     }
 
     public String getUsername() {
@@ -80,21 +83,21 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
-    public RoleEnum getRole() {
-        return role;
-    }
-
-    public UserEntity setRole(RoleEnum role) {
-        this.role = role;
-        return this;
-    }
-
     public UserLevelEnum getLevel() {
         return level;
     }
 
     public UserEntity setLevel(UserLevelEnum level) {
         this.level = level;
+        return this;
+    }
+
+    public Set<RoleEntity> getRoles() {
+        return roles;
+    }
+
+    public UserEntity setRoles(Set<RoleEntity> roles) {
+        this.roles = roles;
         return this;
     }
 
