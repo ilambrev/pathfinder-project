@@ -1,5 +1,6 @@
 package bg.sodtuni.pathfinderproject.web;
 
+import bg.sodtuni.pathfinderproject.model.dto.UserLoginDTO;
 import bg.sodtuni.pathfinderproject.model.dto.UserRegistrationDTO;
 import bg.sodtuni.pathfinderproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,25 @@ public class AuthController {
 
         this.userService.registerUser(userRegistrationDTO);
 
-        return "redirect: /users/login";
+        return "redirect:/users/login";
+    }
+
+    @GetMapping("/login")
+    public String loadLoginForm(Model model) {
+
+        if (!model.containsAttribute("userLoginDTO")) {
+            model.addAttribute("userLoginDTO", new UserLoginDTO());
+        }
+
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String loginUser(UserLoginDTO userLoginDTO) {
+
+        this.userService.loginUser(userLoginDTO);
+
+        return "redirect:/home";
     }
 
 }

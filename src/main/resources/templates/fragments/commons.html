@@ -26,7 +26,7 @@
     <nav class="main-nav">
         <ul>
             <li th:unless="${@currentUser.isLogged()}">
-                <a th:href="@{/}">Home</a>
+                <a th:href="@{/home}">Home</a>
             </li>
             <li th:unless="${@currentUser.isLogged()}">
                 <a th:href="@{/users/login}">Login</a>
@@ -35,13 +35,13 @@
                 <a th:href="@{/users/register}">Register</a>
             </li>
             <li th:unless="${@currentUser.isLogged()}">
-                <a href="/">About</a>
+                <a th:href="@{/about}">About</a>
             </li>
             <li th:if="${@currentUser.isLogged()}">
                 <a href="/">Add new route</a>
             </li>
             <li th:if="${@currentUser.isLogged()}">
-                <a href="/">Profile</a>
+                <a th:href="@{/users/profile}">Profile</a>
             </li>
             <li>
                 <a th:if="${@currentUser.isLogged() && @currentUser.isAdmin()}" href="/">Admin</a>
