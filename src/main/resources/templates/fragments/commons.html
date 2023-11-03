@@ -25,28 +25,28 @@
 <header th:fragment="header">
     <nav class="main-nav">
         <ul>
-            <li>
-                <a href="/">Home</a>
+            <li th:unless="${@currentUser.isLogged()}">
+                <a th:href="@{/}">Home</a>
             </li>
-            <li>
-                <a href="/">Login</a>
+            <li th:unless="${@currentUser.isLogged()}">
+                <a th:href="@{/users/login}">Login</a>
             </li>
-            <li>
+            <li th:unless="${@currentUser.isLogged()}">
                 <a th:href="@{/users/register}">Register</a>
             </li>
-            <li>
+            <li th:unless="${@currentUser.isLogged()}">
                 <a href="/">About</a>
             </li>
-            <li>
+            <li th:if="${@currentUser.isLogged()}">
                 <a href="/">Add new route</a>
             </li>
-            <li>
+            <li th:if="${@currentUser.isLogged()}">
                 <a href="/">Profile</a>
             </li>
             <li>
-                <a href="/">Admin</a>
+                <a th:if="${@currentUser.isLogged() && @currentUser.isAdmin()}" href="/">Admin</a>
             </li>
-            <li>
+            <li th:if="${@currentUser.isLogged()}">
                 <a href="/">Logout</a>
             </li>
         </ul>

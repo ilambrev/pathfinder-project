@@ -1,10 +1,12 @@
 package bg.sodtuni.pathfinderproject.util;
 
 import bg.sodtuni.pathfinderproject.model.entity.RoleEntity;
+import bg.sodtuni.pathfinderproject.model.enums.RoleEnum;
 import bg.sodtuni.pathfinderproject.model.enums.UserLevelEnum;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Component("currentUser")
@@ -26,7 +28,7 @@ public class CurrentUser {
     private boolean isLogged;
 
     public CurrentUser() {
-
+        this.roles = new HashSet<>();
     }
 
     public Long getId() {
@@ -90,6 +92,10 @@ public class CurrentUser {
     public CurrentUser setLogged(boolean logged) {
         isLogged = logged;
         return this;
+    }
+
+    public boolean isAdmin() {
+        return this.roles.stream().anyMatch(r -> r.getName().name().equals("ADMIN"));
     }
 
     public void logout() {
