@@ -1,7 +1,7 @@
 spring:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: "jdbc:mysql://localhost:3306/pathfinder?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC"
+    url: "jdbc:mysql://localhost:3306/pathfinder-project?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC"
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
   servlet:
@@ -9,7 +9,7 @@ spring:
       max-file-size: 1MB
       max-request-size: 5MB
   mvc:
-    hidden-method:
+    hiddenmethod:
       filter:
         enabled: true
   #sql:
