@@ -4,9 +4,11 @@ import bg.softuni.pathfinderproject.model.dto.UserLoginDTO;
 import bg.softuni.pathfinderproject.model.dto.UserRegistrationDTO;
 import bg.softuni.pathfinderproject.service.UserService;
 import bg.softuni.pathfinderproject.util.CurrentUser;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,7 +38,16 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String registerUser(UserRegistrationDTO userRegistrationDTO) {
+    public String registerUser(@Valid UserRegistrationDTO userRegistrationDTO,
+                               BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes) {
+
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("userRegistrationDTO", userRegistrationDTO);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.userRegistrationDTO", bindingResult);
+
+            return "redirect:/users/register";
+        }
 
         this.userService.registerUser(userRegistrationDTO);
 
