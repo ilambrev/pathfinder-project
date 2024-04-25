@@ -81,4 +81,10 @@ public class AuthController {
         return "redirect:/home";
     }
 
+    @GetMapping("/profile")
+    public String showProfile() {
+
+        return "/profile";
+    }
+
 }
