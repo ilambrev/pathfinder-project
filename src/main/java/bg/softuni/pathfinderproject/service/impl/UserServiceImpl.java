@@ -93,4 +93,9 @@ public class UserServiceImpl implements UserService {
         return this.userRepository.findByEmail(email).isEmpty();
     }
 
+    @Override
+    public void logOutUser() {
+        this.currentUser.logout();
+    }
+
 }

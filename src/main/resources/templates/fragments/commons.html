@@ -47,8 +47,13 @@
                 <a th:if="${@currentUser.isLogged() && @currentUser.isAdmin()}" href="/">Admin</a>
             </li>
             <li th:if="${@currentUser.isLogged()}">
-                <a href="/">Logout</a>
+                <form th:action="@{/users/logout}" th:method="POST">
+                    <button type="submit" class="btn-logout">Logout</button>
+                </form>
             </li>
+<!--            <li th:if="${@currentUser.isLogged()}">-->
+<!--                <a href="/">Logout</a>-->
+<!--            </li>-->
         </ul>
     </nav>
 </header>
