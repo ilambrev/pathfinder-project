@@ -3,7 +3,9 @@ package bg.softuni.pathfinderproject.model.entity;
 import bg.softuni.pathfinderproject.model.enums.RouteLevelEnum;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -35,8 +37,12 @@ public class RouteEntity extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
     private Set<CategoryEntity> categories;
 
+    @OneToMany(targetEntity = PictureEntity.class, mappedBy = "route", fetch = FetchType.EAGER)
+    private List<PictureEntity> pictures;
+
     public RouteEntity() {
         this.categories = new HashSet<>();
+        this.pictures = new ArrayList<>();
     }
 
     public String getDescription() {
@@ -102,4 +108,16 @@ public class RouteEntity extends BaseEntity {
         return this;
     }
 
+    public List<PictureEntity> getPictures() {
+        return pictures;
+    }
+
+    public RouteEntity setPictures(List<PictureEntity> pictures) {
+        this.pictures = pictures;
+        return this;
+    }
+
+    public String getPictureUrl() {
+        return this.pictures.isEmpty() ? "" : this.pictures.get(0).getUrl();
+    }
 }
