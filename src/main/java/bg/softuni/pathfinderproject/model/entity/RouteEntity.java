@@ -4,9 +4,7 @@ import bg.softuni.pathfinderproject.model.enums.RouteLevelEnum;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "routes")
@@ -35,13 +33,13 @@ public class RouteEntity extends BaseEntity {
     @ManyToMany(targetEntity = CategoryEntity.class, fetch = FetchType.EAGER)
     @JoinTable(name = "routes_categories", joinColumns = @JoinColumn(name = "route_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "category_id", referencedColumnName = "id"))
-    private Set<CategoryEntity> categories;
+    private List<CategoryEntity> categories;
 
     @OneToMany(targetEntity = PictureEntity.class, mappedBy = "route", fetch = FetchType.EAGER)
     private List<PictureEntity> pictures;
 
     public RouteEntity() {
-        this.categories = new HashSet<>();
+        this.categories = new ArrayList<>();
         this.pictures = new ArrayList<>();
     }
 
@@ -99,11 +97,11 @@ public class RouteEntity extends BaseEntity {
         return this;
     }
 
-    public Set<CategoryEntity> getCategories() {
+    public List<CategoryEntity> getCategories() {
         return categories;
     }
 
-    public RouteEntity setCategories(Set<CategoryEntity> categories) {
+    public RouteEntity setCategories(List<CategoryEntity> categories) {
         this.categories = categories;
         return this;
     }

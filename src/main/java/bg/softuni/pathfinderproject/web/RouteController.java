@@ -1,6 +1,7 @@
 package bg.softuni.pathfinderproject.web;
 
 import bg.softuni.pathfinderproject.model.dto.RouteCreateDTO;
+import bg.softuni.pathfinderproject.model.enums.CategoryNameEnum;
 import bg.softuni.pathfinderproject.model.enums.RouteLevelEnum;
 import bg.softuni.pathfinderproject.service.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ public class RouteController {
     @GetMapping("/add")
     public String addRoute(Model model) {
         model.addAttribute("routeLevels", RouteLevelEnum.values());
+        model.addAttribute("routeCategories", CategoryNameEnum.values());
         return "add-route";
     }
 

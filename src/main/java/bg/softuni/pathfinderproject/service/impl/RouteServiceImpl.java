@@ -52,7 +52,7 @@ public class RouteServiceImpl implements RouteService {
                 .setGpxCoordinates(new String(routeCreateDTO.getGpxCoordinates().getBytes(), StandardCharsets.UTF_8).trim())
                 .setLevel(routeCreateDTO.getLevel())
                 .setName(routeCreateDTO.getName())
-                .setVideoUrl(routeCreateDTO.getVideoUrl())
+                .setVideoUrl(routeCreateDTO.getVideoUrl().replace("https://www.youtube.com/watch?v=", ""))
                 .setAuthor(author);
 
         this.routeRepository.save(route);

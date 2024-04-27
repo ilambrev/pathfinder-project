@@ -1,7 +1,11 @@
 package bg.softuni.pathfinderproject.model.dto;
 
+import bg.softuni.pathfinderproject.model.enums.CategoryNameEnum;
 import bg.softuni.pathfinderproject.model.enums.RouteLevelEnum;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RouteCreateDTO {
 
@@ -15,8 +19,10 @@ public class RouteCreateDTO {
 
     private String videoUrl;
 
-    public RouteCreateDTO() {
+    private List<CategoryNameEnum> categories;
 
+    public RouteCreateDTO() {
+        this.categories = new ArrayList<>();
     }
 
     public String getName() {
@@ -61,6 +67,15 @@ public class RouteCreateDTO {
 
     public RouteCreateDTO setVideoUrl(String videoUrl) {
         this.videoUrl = videoUrl;
+        return this;
+    }
+
+    public List<CategoryNameEnum> getCategories() {
+        return categories;
+    }
+
+    public RouteCreateDTO setCategories(List<CategoryNameEnum> categories) {
+        this.categories = categories;
         return this;
     }
 }

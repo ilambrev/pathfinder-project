@@ -3,7 +3,9 @@ package bg.softuni.pathfinderproject.model.entity;
 import bg.softuni.pathfinderproject.model.enums.UserLevelEnum;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -32,10 +34,10 @@ public class UserEntity extends BaseEntity {
     @ManyToMany(targetEntity = RoleEntity.class, fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private Set<RoleEntity> roles;
+    private List<RoleEntity> roles;
 
     public UserEntity() {
-        this.roles = new HashSet<>();
+        this.roles = new ArrayList<>();
     }
 
     public String getUsername() {
@@ -92,13 +94,12 @@ public class UserEntity extends BaseEntity {
         return this;
     }
 
-    public Set<RoleEntity> getRoles() {
+    public List<RoleEntity> getRoles() {
         return roles;
     }
 
-    public UserEntity setRoles(Set<RoleEntity> roles) {
+    public UserEntity setRoles(List<RoleEntity> roles) {
         this.roles = roles;
         return this;
     }
-
 }

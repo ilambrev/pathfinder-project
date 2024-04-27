@@ -14,9 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -39,7 +37,7 @@ public class UserServiceImpl implements UserService {
     public boolean registerUser(UserRegistrationDTO userRegistrationDTO) {
 
         RoleEntity role = this.roleRepository.findByName(RoleEnum.USER);
-        Set<RoleEntity> roles = new HashSet<>();
+        List<RoleEntity> roles = new ArrayList<>();
         roles.add(role);
 
         UserEntity user = new UserEntity()

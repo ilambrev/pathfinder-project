@@ -5,7 +5,9 @@ import bg.softuni.pathfinderproject.model.enums.UserLevelEnum;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Component("currentUser")
@@ -22,12 +24,12 @@ public class CurrentUser {
 
     private UserLevelEnum level;
 
-    private Set<RoleEntity> roles;
+    private List<RoleEntity> roles;
 
     private boolean isLogged;
 
     public CurrentUser() {
-        this.roles = new HashSet<>();
+        this.roles = new ArrayList<>();
     }
 
     public Long getId() {
@@ -75,11 +77,11 @@ public class CurrentUser {
         return this;
     }
 
-    public Set<RoleEntity> getRoles() {
+    public List<RoleEntity> getRoles() {
         return roles;
     }
 
-    public CurrentUser setRoles(Set<RoleEntity> roles) {
+    public CurrentUser setRoles(List<RoleEntity> roles) {
         this.roles = roles;
         return this;
     }
