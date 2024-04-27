@@ -1,6 +1,7 @@
 package bg.softuni.pathfinderproject.web;
 
 import bg.softuni.pathfinderproject.model.dto.RouteCreateDTO;
+import bg.softuni.pathfinderproject.model.enums.RouteLevelEnum;
 import bg.softuni.pathfinderproject.service.RouteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,8 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 
 @Controller
 @RequestMapping("/routes")
@@ -32,7 +31,7 @@ public class RouteController {
 
     @GetMapping("/add")
     public String addRoute(Model model) {
-        model.addAttribute("routeLevels", this.routeService.getRouteLevels());
+        model.addAttribute("routeLevels", RouteLevelEnum.values());
         return "add-route";
     }
 

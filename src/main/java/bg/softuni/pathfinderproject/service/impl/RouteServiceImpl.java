@@ -4,7 +4,6 @@ import bg.softuni.pathfinderproject.model.dto.RouteCreateDTO;
 import bg.softuni.pathfinderproject.model.dto.RouteDTO;
 import bg.softuni.pathfinderproject.model.entity.RouteEntity;
 import bg.softuni.pathfinderproject.model.entity.UserEntity;
-import bg.softuni.pathfinderproject.model.enums.RouteLevelEnum;
 import bg.softuni.pathfinderproject.repository.RouteRepository;
 import bg.softuni.pathfinderproject.service.RouteService;
 import bg.softuni.pathfinderproject.service.UserService;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,13 +34,6 @@ public class RouteServiceImpl implements RouteService {
         List<RouteEntity> routes = this.routeRepository.findAll();
 
         return routes.stream().map(this::routeMapper).toList();
-    }
-
-    @Override
-    public List<String> getRouteLevels() {
-        return Arrays.stream(RouteLevelEnum.values())
-                .map(Enum::name)
-                .toList();
     }
 
     @Override

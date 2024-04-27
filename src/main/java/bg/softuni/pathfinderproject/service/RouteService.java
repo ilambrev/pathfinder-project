@@ -10,7 +10,5 @@ public interface RouteService {
 
     List<RouteDTO> getAllRoutes();
 
-    List<String> getRouteLevels();
-
     boolean createRoute(RouteCreateDTO routeCreateDTO) throws IOException;
 }
