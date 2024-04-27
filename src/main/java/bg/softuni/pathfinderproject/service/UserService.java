@@ -2,6 +2,9 @@ package bg.softuni.pathfinderproject.service;
 
 import bg.softuni.pathfinderproject.model.dto.UserLoginDTO;
 import bg.softuni.pathfinderproject.model.dto.UserRegistrationDTO;
+import bg.softuni.pathfinderproject.model.entity.UserEntity;
+
+import java.util.Optional;
 
 public interface UserService {
 
@@ -14,5 +17,7 @@ public interface UserService {
     boolean checkForNonExistingEmail(String email);
 
     void logOutUser();
+
+    Optional<UserEntity> getUserById(Long id);
 
 }
