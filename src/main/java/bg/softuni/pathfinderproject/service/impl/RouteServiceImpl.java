@@ -5,9 +5,11 @@ import bg.softuni.pathfinderproject.model.dto.RouteDTO;
 import bg.softuni.pathfinderproject.model.entity.RouteEntity;
 import bg.softuni.pathfinderproject.model.entity.UserEntity;
 import bg.softuni.pathfinderproject.repository.RouteRepository;
+import bg.softuni.pathfinderproject.service.CategoryService;
 import bg.softuni.pathfinderproject.service.RouteService;
 import bg.softuni.pathfinderproject.service.UserService;
 import bg.softuni.pathfinderproject.util.CurrentUser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -20,11 +22,14 @@ public class RouteServiceImpl implements RouteService {
 
     private final RouteRepository routeRepository;
     private final UserService userService;
+    private final CategoryService categoryService;
     private final CurrentUser currentUser;
 
-    public RouteServiceImpl(RouteRepository routeRepository, UserService userService, CurrentUser currentUser) {
+    @Autowired
+    public RouteServiceImpl(RouteRepository routeRepository, UserService userService, CategoryService categoryService, CurrentUser currentUser) {
         this.routeRepository = routeRepository;
         this.userService = userService;
+        this.categoryService = categoryService;
         this.currentUser = currentUser;
     }
 
@@ -53,7 +58,9 @@ public class RouteServiceImpl implements RouteService {
                 .setLevel(routeCreateDTO.getLevel())
                 .setName(routeCreateDTO.getName())
                 .setVideoUrl(routeCreateDTO.getVideoUrl().replace("https://www.youtube.com/watch?v=", ""))
-                .setAuthor(author);
+                .setAuthor(author)
+                .setCategories(routeCreateDTO.getCategories().stream()
+                        .map(categoryService::getCategoryByName).toList());
 
         this.routeRepository.save(route);
 
