@@ -2,6 +2,8 @@ package bg.softuni.pathfinderproject.service.impl;
 
 import bg.softuni.pathfinderproject.model.dto.RouteCreateDTO;
 import bg.softuni.pathfinderproject.model.dto.RouteDTO;
+import bg.softuni.pathfinderproject.model.dto.RouteDetailsDTO;
+import bg.softuni.pathfinderproject.model.entity.PictureEntity;
 import bg.softuni.pathfinderproject.model.entity.RouteEntity;
 import bg.softuni.pathfinderproject.model.entity.UserEntity;
 import bg.softuni.pathfinderproject.repository.RouteRepository;
@@ -52,18 +54,46 @@ public class RouteServiceImpl implements RouteService {
             author = authorOptional.get();
         }
 
+        String videoUrl = routeCreateDTO.getVideoUrl();
+
+        if (videoUrl.length() > 11) {
+            videoUrl = videoUrl.substring(videoUrl.length() - 11);
+        }
+
         RouteEntity route = new RouteEntity()
                 .setDescription(routeCreateDTO.getDescription())
                 .setGpxCoordinates(new String(routeCreateDTO.getGpxCoordinates().getBytes(), StandardCharsets.UTF_8).trim())
                 .setLevel(routeCreateDTO.getLevel())
                 .setName(routeCreateDTO.getName())
-                .setVideoUrl(routeCreateDTO.getVideoUrl().replace("https://www.youtube.com/watch?v=", ""))
+                .setVideoUrl(videoUrl)
                 .setAuthor(author)
                 .setCategories(this.categoryService.getCategoriesByName(routeCreateDTO.getCategories()));
 
         this.routeRepository.save(route);
 
         return true;
+    }
+
+    @Override
+    public RouteDetailsDTO getRouteById(Long id) {
+        Optional<RouteEntity> routeOptional = this.routeRepository.findById(id);
+
+        RouteEntity route = new RouteEntity();
+
+        if (routeOptional.isPresent()) {
+            route = routeOptional.get();
+        }
+
+        int position = route.getLevel().ordinal();
+
+        return new RouteDetailsDTO()
+                .setName(route.getName())
+                .setTotalDistance(1)
+                .setAuthorName(route.getAuthor().getFullName())
+                .setLevel(route.getLevel())
+                .setVideoUrl("https://www.youtube.com/embed/" + route.getVideoUrl())
+                .setDescription(route.getDescription())
+                .setPictures(route.getPictures().stream().map(PictureEntity::getUrl).toList());
     }
 
     private RouteDTO routeMapper(RouteEntity routeEntity) {
