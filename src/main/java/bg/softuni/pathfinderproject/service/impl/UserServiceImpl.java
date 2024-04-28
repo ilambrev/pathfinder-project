@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean loginUser(UserLoginDTO userLoginDTO) {
 
-        Optional<UserEntity> userOptional = this.userRepository.findByUsername(userLoginDTO.getUsername());
+        Optional<UserEntity> userOptional = getUserByUsername(userLoginDTO.getUsername());
 
         if (userOptional.isEmpty()) {
             return false;
@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService {
         }
 
         this.currentUser
-                .setId(user.getId())
+                .setEmail(user.getEmail())
                 .setUsername(user.getUsername())
                 .setAge(user.getAge())
                 .setFullName(user.getFullName())
@@ -83,7 +83,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean checkForNonExistingUsername(String username) {
-        return this.userRepository.findByUsername(username).isEmpty();
+        return getUserByUsername(username).isEmpty();
     }
 
     @Override
@@ -97,8 +97,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<UserEntity> getUserById(Long id) {
-        return this.userRepository.findById(id);
+    public Optional<UserEntity> getUserByUsername(String username) {
+        return this.userRepository.findByUsername(username);
     }
 
 }

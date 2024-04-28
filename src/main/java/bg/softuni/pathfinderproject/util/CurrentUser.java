@@ -6,15 +6,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Component("currentUser")
 @SessionScope
 public class CurrentUser {
 
-    private Long id;
+    private String email;
 
     private String username;
 
@@ -32,12 +30,12 @@ public class CurrentUser {
         this.roles = new ArrayList<>();
     }
 
-    public Long getId() {
-        return id;
+    public String getEmail() {
+        return email;
     }
 
-    public CurrentUser setId(Long id) {
-        this.id = id;
+    public CurrentUser setEmail(String email) {
+        this.email = email;
         return this;
     }
 
@@ -100,7 +98,7 @@ public class CurrentUser {
     }
 
     public void logout() {
-        this.id = null;
+        this.email = null;
         this.username = null;
         this.age = null;
         this.fullName = null;

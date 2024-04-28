@@ -44,7 +44,7 @@ public class RouteServiceImpl implements RouteService {
     @Override
     public boolean createRoute(RouteCreateDTO routeCreateDTO) throws IOException {
 
-        Optional<UserEntity> authorOptional = this.userService.getUserById(this.currentUser.getId());
+        Optional<UserEntity> authorOptional = this.userService.getUserByUsername(this.currentUser.getUsername());
 
         UserEntity author = new UserEntity();
 

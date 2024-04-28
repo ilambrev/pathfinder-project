@@ -18,6 +18,6 @@ public interface UserService {
 
     void logOutUser();
 
-    Optional<UserEntity> getUserById(Long id);
+    Optional<UserEntity> getUserByUsername(String username);
 
 }
