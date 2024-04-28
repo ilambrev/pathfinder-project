@@ -84,8 +84,6 @@ public class RouteServiceImpl implements RouteService {
             route = routeOptional.get();
         }
 
-        int position = route.getLevel().ordinal();
-
         return new RouteDetailsDTO()
                 .setName(route.getName())
                 .setTotalDistance(1)
