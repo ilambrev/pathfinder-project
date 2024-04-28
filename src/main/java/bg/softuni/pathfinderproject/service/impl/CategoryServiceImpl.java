@@ -7,6 +7,8 @@ import bg.softuni.pathfinderproject.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
@@ -18,7 +20,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public CategoryEntity getCategoryByName(CategoryNameEnum name) {
-        return this.categoryRepository.getFirstByName(name);
+    public List<CategoryEntity> getCategoriesByName(List<CategoryNameEnum> categories) {
+        return this.categoryRepository.findByNameIn(categories);
     }
 }

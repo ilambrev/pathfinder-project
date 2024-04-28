@@ -59,8 +59,7 @@ public class RouteServiceImpl implements RouteService {
                 .setName(routeCreateDTO.getName())
                 .setVideoUrl(routeCreateDTO.getVideoUrl().replace("https://www.youtube.com/watch?v=", ""))
                 .setAuthor(author)
-                .setCategories(routeCreateDTO.getCategories().stream()
-                        .map(categoryService::getCategoryByName).toList());
+                .setCategories(this.categoryService.getCategoriesByName(routeCreateDTO.getCategories()));
 
         this.routeRepository.save(route);
 
