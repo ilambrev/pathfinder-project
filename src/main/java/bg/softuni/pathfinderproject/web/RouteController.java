@@ -71,4 +71,11 @@ public class RouteController {
 
         return "motorcycle";
     }
+
+    @GetMapping("/car")
+    public String showCarRoutes(Model model) {
+        model.addAttribute("carRoutes", this.routeService.getRoutesByCategory(CategoryNameEnum.CAR));
+
+        return "car";
+    }
 }
