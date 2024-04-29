@@ -50,4 +50,11 @@ public class RouteController {
 
         return "route-details";
     }
+
+    @GetMapping("/pedestrian")
+    public String showPedestrianRoutes(Model model) {
+        model.addAttribute("pedestrianRoutes", this.routeService.getPedestrianRoutes());
+
+        return "pedestrian";
+    }
 }

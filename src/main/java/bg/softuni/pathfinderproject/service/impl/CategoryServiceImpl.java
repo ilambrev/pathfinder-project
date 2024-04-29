@@ -23,4 +23,9 @@ public class CategoryServiceImpl implements CategoryService {
     public List<CategoryEntity> getCategoriesByName(List<CategoryNameEnum> categories) {
         return this.categoryRepository.findByNameIn(categories);
     }
+
+    @Override
+    public CategoryEntity getCategoryByName(CategoryNameEnum category) {
+        return  this.categoryRepository.findFirstByName(category);
+    }
 }

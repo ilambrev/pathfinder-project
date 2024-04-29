@@ -8,4 +8,6 @@ import java.util.List;
 public interface CategoryService {
 
     List<CategoryEntity> getCategoriesByName(List<CategoryNameEnum> categories);
+
+    CategoryEntity getCategoryByName(CategoryNameEnum category);
 }

@@ -14,4 +14,6 @@ public interface RouteService {
     boolean createRoute(RouteCreateDTO routeCreateDTO) throws IOException;
 
     RouteDetailsDTO getRouteById(Long id);
+
+    List<RouteDTO> getPedestrianRoutes();
 }

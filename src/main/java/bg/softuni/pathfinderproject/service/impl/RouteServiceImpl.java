@@ -3,9 +3,11 @@ package bg.softuni.pathfinderproject.service.impl;
 import bg.softuni.pathfinderproject.model.dto.RouteCreateDTO;
 import bg.softuni.pathfinderproject.model.dto.RouteDTO;
 import bg.softuni.pathfinderproject.model.dto.RouteDetailsDTO;
+import bg.softuni.pathfinderproject.model.entity.CategoryEntity;
 import bg.softuni.pathfinderproject.model.entity.PictureEntity;
 import bg.softuni.pathfinderproject.model.entity.RouteEntity;
 import bg.softuni.pathfinderproject.model.entity.UserEntity;
+import bg.softuni.pathfinderproject.model.enums.CategoryNameEnum;
 import bg.softuni.pathfinderproject.repository.RouteRepository;
 import bg.softuni.pathfinderproject.service.CategoryService;
 import bg.softuni.pathfinderproject.service.RouteService;
@@ -92,6 +94,15 @@ public class RouteServiceImpl implements RouteService {
                 .setVideoUrl("https://www.youtube.com/embed/" + route.getVideoUrl())
                 .setDescription(route.getDescription())
                 .setPictures(route.getPictures().stream().map(PictureEntity::getUrl).toList());
+    }
+
+    @Override
+    public List<RouteDTO> getPedestrianRoutes() {
+        CategoryEntity category = this.categoryService.getCategoryByName(CategoryNameEnum.PEDESTRIAN);
+
+        List<RouteEntity> pedestrianRoutes = this.routeRepository.findAllByCategoriesContaining(category);
+
+        return pedestrianRoutes.stream().map(this::routeMapper).toList();
     }
 
     private RouteDTO routeMapper(RouteEntity routeEntity) {
