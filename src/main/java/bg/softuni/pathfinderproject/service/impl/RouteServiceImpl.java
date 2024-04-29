@@ -97,12 +97,12 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public List<RouteDTO> getPedestrianRoutes() {
-        CategoryEntity category = this.categoryService.getCategoryByName(CategoryNameEnum.PEDESTRIAN);
+    public List<RouteDTO> getRoutesByCategory(CategoryNameEnum categoryName) {
+        CategoryEntity category = this.categoryService.getCategoryByName(categoryName);
 
-        List<RouteEntity> pedestrianRoutes = this.routeRepository.findAllByCategoriesContaining(category);
+        List<RouteEntity> routes = this.routeRepository.findAllByCategoriesContaining(category);
 
-        return pedestrianRoutes.stream().map(this::routeMapper).toList();
+        return routes.stream().map(this::routeMapper).toList();
     }
 
     private RouteDTO routeMapper(RouteEntity routeEntity) {
