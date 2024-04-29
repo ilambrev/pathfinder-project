@@ -57,4 +57,11 @@ public class RouteController {
 
         return "pedestrian";
     }
+
+    @GetMapping("/bicycle")
+    public String showBicycleRoutes(Model model) {
+        model.addAttribute("bicycleRoutes", this.routeService.getRoutesByCategory(CategoryNameEnum.BICYCLE));
+
+        return "bicycle";
+    }
 }
