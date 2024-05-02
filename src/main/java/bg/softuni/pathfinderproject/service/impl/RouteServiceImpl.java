@@ -48,13 +48,7 @@ public class RouteServiceImpl implements RouteService {
     @Override
     public boolean createRoute(RouteCreateDTO routeCreateDTO) throws IOException {
 
-        Optional<UserEntity> authorOptional = this.userService.getUserByUsername(this.currentUser.getUsername());
-
-        UserEntity author = new UserEntity();
-
-        if (authorOptional.isPresent()) {
-            author = authorOptional.get();
-        }
+        UserEntity author = this.userService.getUserByUsername(this.currentUser.getUsername());
 
         String videoUrl = routeCreateDTO.getVideoUrl();
 

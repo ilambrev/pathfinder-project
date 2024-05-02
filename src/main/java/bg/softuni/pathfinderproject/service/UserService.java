@@ -18,6 +18,5 @@ public interface UserService {
 
     void logOutUser();
 
-    Optional<UserEntity> getUserByUsername(String username);
-
+    UserEntity getUserByUsername(String username);
 }

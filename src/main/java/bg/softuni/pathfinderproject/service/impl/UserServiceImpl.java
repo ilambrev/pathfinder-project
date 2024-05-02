@@ -1,5 +1,6 @@
 package bg.softuni.pathfinderproject.service.impl;
 
+import bg.softuni.pathfinderproject.exception.UserNotFoundException;
 import bg.softuni.pathfinderproject.model.dto.UserLoginDTO;
 import bg.softuni.pathfinderproject.model.dto.UserRegistrationDTO;
 import bg.softuni.pathfinderproject.model.entity.RoleEntity;
@@ -57,7 +58,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean loginUser(UserLoginDTO userLoginDTO) {
 
-        Optional<UserEntity> userOptional = getUserByUsername(userLoginDTO.getUsername());
+        Optional<UserEntity> userOptional = this.userRepository.findByUsername(userLoginDTO.getUsername());
 
         if (userOptional.isEmpty()) {
             return false;
@@ -83,7 +84,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean checkForNonExistingUsername(String username) {
-        return getUserByUsername(username).isEmpty();
+        return this.userRepository.findByUsername(username).isEmpty();
     }
 
     @Override
@@ -97,8 +98,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<UserEntity> getUserByUsername(String username) {
-        return this.userRepository.findByUsername(username);
+    public UserEntity getUserByUsername(String username) {
+        return this.userRepository.findByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException("User with username: " + username + "not found!"));
     }
 
 }
