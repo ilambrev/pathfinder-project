@@ -2,6 +2,7 @@ package bg.softuni.pathfinderproject.service.impl;
 
 import bg.softuni.pathfinderproject.exception.UserNotFoundException;
 import bg.softuni.pathfinderproject.model.dto.UserLoginDTO;
+import bg.softuni.pathfinderproject.model.dto.UserProfileDTO;
 import bg.softuni.pathfinderproject.model.dto.UserRegistrationDTO;
 import bg.softuni.pathfinderproject.model.entity.RoleEntity;
 import bg.softuni.pathfinderproject.model.entity.UserEntity;
@@ -103,4 +104,15 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UserNotFoundException("User with username: " + username + "not found!"));
     }
 
+    @Override
+    public UserProfileDTO getUserProfileByUsername(String username) {
+
+        UserEntity user = getUserByUsername(username);
+
+        return new UserProfileDTO()
+                .setUsername(user.getUsername())
+                .setFullName(user.getFullName())
+                .setAge(user.getAge())
+                .setLevel(user.getLevel());
+    }
 }

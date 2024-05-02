@@ -89,7 +89,8 @@ public class AuthController {
     }
 
     @GetMapping("/profile")
-    public String showProfile() {
+    public String showProfile(Model model) {
+        model.addAttribute("userProfile", this.userService.getUserProfileByUsername(this.currentUser.getUsername()));
 
         return "/profile";
     }

@@ -1,10 +1,9 @@
 package bg.softuni.pathfinderproject.service;
 
 import bg.softuni.pathfinderproject.model.dto.UserLoginDTO;
+import bg.softuni.pathfinderproject.model.dto.UserProfileDTO;
 import bg.softuni.pathfinderproject.model.dto.UserRegistrationDTO;
 import bg.softuni.pathfinderproject.model.entity.UserEntity;
-
-import java.util.Optional;
 
 public interface UserService {
 
@@ -19,4 +18,6 @@ public interface UserService {
     void logOutUser();
 
     UserEntity getUserByUsername(String username);
+
+    UserProfileDTO getUserProfileByUsername(String username);
 }
