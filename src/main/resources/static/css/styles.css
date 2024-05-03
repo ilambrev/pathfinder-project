@@ -363,3 +363,11 @@ body {
     height: 40px;
     background-color: #0833e3
 }
+
+.back-btn {
+    padding: 0.5rem;
+}
+
+.back-btn:hover {
+    background-color: #0833e3;
+}
