@@ -92,7 +92,7 @@ public class RouteServiceImpl implements RouteService {
                 .setTotalDistance(1)
                 .setAuthorName(route.getAuthor().getFullName())
                 .setLevel(route.getLevel())
-                .setVideoUrl("https://www.youtube.com/embed/" + route.getVideoUrl())
+                .setVideoUrl(route.getVideoUrl())
                 .setDescription(route.getDescription())
                 .setPictures(route.getPictures().stream().map(PictureEntity::getUrl).toList());
     }
