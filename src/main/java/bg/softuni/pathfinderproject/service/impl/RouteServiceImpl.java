@@ -1,5 +1,6 @@
 package bg.softuni.pathfinderproject.service.impl;
 
+import bg.softuni.pathfinderproject.exception.RouteNotFoundException;
 import bg.softuni.pathfinderproject.model.dto.RouteCreateDTO;
 import bg.softuni.pathfinderproject.model.dto.RouteDTO;
 import bg.softuni.pathfinderproject.model.dto.RouteDetailsDTO;
@@ -71,7 +72,12 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public RouteDetailsDTO getRouteById(Long id) {
+    public RouteEntity getRouteById(Long id) {
+        return this.routeRepository.findById(id).orElseThrow(() -> new RouteNotFoundException("Route with id: " + id + "not found!"));
+    }
+
+    @Override
+    public RouteDetailsDTO getRouteDetailsById(Long id) {
         Optional<RouteEntity> routeOptional = this.routeRepository.findById(id);
 
         RouteEntity route = new RouteEntity();
@@ -81,6 +87,7 @@ public class RouteServiceImpl implements RouteService {
         }
 
         return new RouteDetailsDTO()
+                .setId(route.getId())
                 .setName(route.getName())
                 .setTotalDistance(1)
                 .setAuthorName(route.getAuthor().getFullName())

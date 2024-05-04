@@ -1,9 +1,12 @@
 package bg.softuni.pathfinderproject.web;
 
+import bg.softuni.pathfinderproject.model.dto.PictureCreateDTO;
 import bg.softuni.pathfinderproject.model.dto.RouteCreateDTO;
 import bg.softuni.pathfinderproject.model.enums.CategoryNameEnum;
 import bg.softuni.pathfinderproject.model.enums.RouteLevelEnum;
+import bg.softuni.pathfinderproject.service.PictureService;
 import bg.softuni.pathfinderproject.service.RouteService;
+import bg.softuni.pathfinderproject.util.CurrentUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,10 +22,14 @@ import java.io.IOException;
 public class RouteController {
 
     private final RouteService routeService;
+    private final PictureService pictureService;
+    private final CurrentUser currentUser;
 
     @Autowired
-    public RouteController(RouteService routeService) {
+    public RouteController(RouteService routeService, PictureService pictureService, CurrentUser currentUser) {
         this.routeService = routeService;
+        this.pictureService = pictureService;
+        this.currentUser = currentUser;
     }
 
     @GetMapping
@@ -46,9 +53,17 @@ public class RouteController {
 
     @GetMapping("/details/{id}")
     public String showRouteDetails(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("routeDetails", this.routeService.getRouteById(id));
+        model.addAttribute("routeDetails", this.routeService.getRouteDetailsById(id));
 
         return "route-details";
+    }
+
+    @PostMapping("/details/{id}/picture/add")
+//    @PostMapping("/details/{id}")
+    public String addPictureToRoute(@PathVariable("id") Long routeId, PictureCreateDTO pictureCreateDTO) {
+        this.pictureService.addPictureToRoute(pictureCreateDTO, routeId);
+
+        return "redirect:/routes/details/{id}";
     }
 
     @GetMapping("/pedestrian")

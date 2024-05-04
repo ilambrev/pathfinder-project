@@ -1,12 +1,13 @@
 package bg.softuni.pathfinderproject.model.dto;
 
-import bg.softuni.pathfinderproject.model.entity.PictureEntity;
 import bg.softuni.pathfinderproject.model.enums.RouteLevelEnum;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class RouteDetailsDTO {
+
+    private Long id;
 
     private String name;
 
@@ -24,6 +25,15 @@ public class RouteDetailsDTO {
 
     public RouteDetailsDTO() {
         this.pictures = new ArrayList<>();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public RouteDetailsDTO setId(Long id) {
+        this.id = id;
+        return this;
     }
 
     public String getName() {

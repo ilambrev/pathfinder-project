@@ -3,6 +3,7 @@ package bg.softuni.pathfinderproject.service;
 import bg.softuni.pathfinderproject.model.dto.RouteCreateDTO;
 import bg.softuni.pathfinderproject.model.dto.RouteDTO;
 import bg.softuni.pathfinderproject.model.dto.RouteDetailsDTO;
+import bg.softuni.pathfinderproject.model.entity.RouteEntity;
 import bg.softuni.pathfinderproject.model.enums.CategoryNameEnum;
 
 import java.io.IOException;
@@ -14,7 +15,9 @@ public interface RouteService {
 
     boolean createRoute(RouteCreateDTO routeCreateDTO) throws IOException;
 
-    RouteDetailsDTO getRouteById(Long id);
+    RouteEntity getRouteById(Long id);
+
+    RouteDetailsDTO getRouteDetailsById(Long id);
 
     List<RouteDTO> getRoutesByCategory(CategoryNameEnum categoryName);
 }
